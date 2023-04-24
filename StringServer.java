@@ -4,21 +4,21 @@ import java.net.URI;
 class Handler implements URLHandler {
     // The one bit of state on the server: a number that will be manipulated by
     // various requests.
-   
+   String s = "";
 
     public String handleRequest(URI url) {
 
-        if(url.getPath().contains("/add-message")){
+        if(url.getPath().equals("/add-message")){
             String[] parameters = url.getQuery().split("=");
-            System.out.println(parameters[1]);
-            return String.format(parameters[1]);  
-            
+            if (s == ""){
+                s = parameters[1] + "\n";
+            }
+            else {
+                s = s + parameters[1] + "\n";
+            }
+            return String.format(s);     
         } 
         
-        if(url.getPath().contains("/add-message")){
-            String[] parameters = url.getQuery().split("=");
-            return String.format(parameters[1]);  
-        } 
         return "404 Not Found!";
         
     }
